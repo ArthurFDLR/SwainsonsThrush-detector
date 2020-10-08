@@ -1,6 +1,8 @@
 import scipy.io.wavfile
+import scipy.signal
 import matplotlib.pyplot as plt
 import numpy as np
+from tqdm import tqdm
 
 def ln_GLRT(s_array:np.ndarray, x_array:np.ndarray) -> np.ndarray:
     """[summary]
@@ -17,7 +19,7 @@ def ln_GLRT(s_array:np.ndarray, x_array:np.ndarray) -> np.ndarray:
 
     GLRT_out = []
 
-    for n_0 in range(x_array.shape[0] - N):
+    for n_0 in tqdm(range(x_array.shape[0] - N)):
         x_array_truncate = x_array[n_0:n_0+N]
 
         A_MLE = np.sum(np.multiply(s_array,x_array_truncate)) / np.sum(np.square(s_array))
@@ -30,15 +32,33 @@ def ln_GLRT(s_array:np.ndarray, x_array:np.ndarray) -> np.ndarray:
     
     return np.array(GLRT_out)
 
+def multipass_lnGLRT(s_array:np.ndarray, x_array:np.ndarray, nbr_pass:int, treshold:float) -> np.ndarray:
+
+    s_array_size = s_array.shape[0]
+    template_array = s_array
+
+    for i in range(nbr_pass):
+        print("i = ", i)
+
+        signal_lnGLRT = ln_GLRT(template_array, x_array)
+        
+        positions_detected, properties = scipy.signal.find_peaks(signal_lnGLRT, threshold=treshold, distance = s_array_size)
+
+        template_array = np.mean([x_array[pos : pos + s_array_size] for pos in positions_detected ], axis=0)
+    
+    return signal_lnGLRT, positions_detected
+
 
 def draw_signal_analysis(ax, template_URL:str, signal_URL:str):
 
     # Read wav files
     template_samplerate, template_WAV = scipy.io.wavfile.read(template_URL)
     signal_samplerate, signal_WAV = scipy.io.wavfile.read(signal_URL)
+    assert template_samplerate == signal_samplerate
 
     # Get Likelihood ratio
-    signal_lnGLRT = ln_GLRT(template_WAV, signal_WAV)
+    signal_lnGLRT, positions_detected = multipass_lnGLRT(template_WAV, signal_WAV, nbr_pass=1, treshold=20)
+    print("Positions detected:", positions_detected/signal_samplerate)
 
     # Draw plot
     signal_timeline = np.linspace(0, signal_WAV.shape[0]/signal_samplerate, signal_WAV.shape[0])
@@ -56,5 +76,5 @@ def draw_signal_analysis(ax, template_URL:str, signal_URL:str):
 if __name__ == "__main__":
     plt.style.use('ggplot')
     fig, ax = plt.subplots()
-    draw_signal_analysis(ax, './audio_files/call.wav', './audio_files/heavy_noise.wav')
+    draw_signal_analysis(ax, './audio_files/call_nature.wav', './audio_files/nature.wav')
     plt.show()
