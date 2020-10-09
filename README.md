@@ -1,7 +1,5 @@
 # Swainson's Thrush call detector
 
-🚧 Work in progress 🚧
-
 ## Audio file formats
 
 - File format: WAV Audio (.wav)
@@ -13,7 +11,7 @@
 
 ### [Swainson's Thrush singing and calling on Youtube](https://youtu.be/0LNtk5OVssQ)
 
-see ./audio_files/nature.wav and ./audio_files/call_nature.wav
+[![Video real-time analysis](./.github/markdown/SwainsonCall.gif)](https://youtu.be/I5ZizGtJkhU "Swainson's Thrush call")
 
 ![heavy_noise.wav analysis](./.github/markdown/nature_detection.png)
 
