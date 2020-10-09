@@ -104,6 +104,7 @@ def create_video(template_URL:pathlib.Path, signal_URL:pathlib.Path, frame_rate:
     signal_samplerate, signal_WAV = scipy.io.wavfile.read(signal_URL)
     assert template_samplerate == signal_samplerate
 
+    #signal_WAV = signal_WAV[:signal_samplerate*5]
 
     signal_size = signal_WAV.shape[0]
     signal_min = signal_WAV.min()
@@ -119,7 +120,7 @@ def create_video(template_URL:pathlib.Path, signal_URL:pathlib.Path, frame_rate:
     signal_lnGLRT_timeline = np.linspace(0, signal_lnGLRT_size/signal_samplerate, signal_lnGLRT_size)
 
     # Initialize graph
-    fig, ax = plt.subplots(figsize=(10,2))
+    fig, ax = plt.subplots(figsize=(10,4))
     ax_bis = ax.twinx()
     fig.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
 
@@ -139,7 +140,7 @@ def create_video(template_URL:pathlib.Path, signal_URL:pathlib.Path, frame_rate:
         ax_bis.set_xlim(0, signal_size)
         ax_bis.set_ylim(0, signal_lnGLRT_max)
         ax.set_xlim(0, signal_size)
-        ax.set_ylim(signal_min, signal_max)
+        ax.set_ylim(signal_min, signal_max*2)
         
         ax.plot(signal_WAV[:t], color='grey', alpha=.7, linewidth=.5)
         ax_bis.plot(signal_lnGLRT[:t], color='#9500ff', linewidth=1.)
@@ -153,5 +154,8 @@ if __name__ == "__main__":
     template_path = CURRENT_PATH / 'audio_files' / 'template' / 'call_2.wav'
     signal_path = CURRENT_PATH / 'audio_files' / 'signals' / 'nature_1.wav'
 
-    #draw_signal_analysis(template_path, signal_path)
-    create_video(template_path, signal_path, 30, 'nature1_call2')
+    signal_hawk_path = CURRENT_PATH / 'audio_files' / 'signals' / 'nature_hawk.wav'
+    template_hawk_path = CURRENT_PATH / 'audio_files' / 'template' / 'call_hawk.wav'
+
+    draw_signal_analysis(template_hawk_path, signal_hawk_path)
+    #create_video(template_path, signal_path, 30, 'nature1_call2')
