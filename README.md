@@ -9,9 +9,7 @@
 
 ## Results
 
-### [Swainson's Thrush singing and calling on Youtube](https://youtu.be/0LNtk5OVssQ)
-
-[![Video real-time analysis](./.github/markdown/SwainsonCall.gif)](https://youtu.be/I5ZizGtJkhU "Swainson's Thrush call")
+[![Video real-time analysis](./.github/markdown/SwainsonCall.gif)](https://youtu.be/NUYM1yvVPls "Swainson's Thrush call")
 
 ![heavy_noise.wav analysis](./.github/markdown/nature_detection.png)
 
