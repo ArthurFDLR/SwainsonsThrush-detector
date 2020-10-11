@@ -6,8 +6,8 @@ from tqdm import tqdm
 import pathlib
 import os
 
-CURRENT_PATH = pathlib.Path(__file__).parent.absolute()
 
+CURRENT_PATH = pathlib.Path(__file__).parent.absolute()
 
 def ln_GLRT(s_array:np.ndarray, x_array:np.ndarray) -> np.ndarray:
     """ Compute the value of natural logarithm of the generalized likelihood ratio along the signal x_array using the template s_array.
@@ -39,48 +39,6 @@ def ln_GLRT(s_array:np.ndarray, x_array:np.ndarray) -> np.ndarray:
     
     return np.array(GLRT_out)
 
-def multipass_lnGLRT(s_array:np.ndarray, x_array:np.ndarray, nbr_pass:int, treshold:float) -> np.ndarray:
-
-    s_array_size = s_array.shape[0]
-    template_array = s_array
-
-    for i in range(nbr_pass):
-
-        signal_lnGLRT = ln_GLRT(template_array, x_array)
-        
-        positions_detected, properties = scipy.signal.find_peaks(signal_lnGLRT, threshold=treshold, distance = s_array_size)
-
-        template_array = np.mean([x_array[pos : pos + s_array_size] for pos in positions_detected ], axis=0)
-    
-    return signal_lnGLRT, positions_detected
-
-
-def draw_signal_analysis(template_URL:str, signal_URL:str):
-    fig, ax = plt.subplots()
-
-    # Read wav files
-    template_samplerate, template_WAV = scipy.io.wavfile.read(template_URL)
-    signal_samplerate, signal_WAV = scipy.io.wavfile.read(signal_URL)
-    assert template_samplerate == signal_samplerate
-
-    # Get Likelihood ratio
-    signal_lnGLRT, positions_detected = multipass_lnGLRT(template_WAV, signal_WAV, nbr_pass=1, treshold=20)
-    print("Positions detected:", positions_detected/signal_samplerate)
-
-    # Draw plot
-    signal_timeline = np.linspace(0, signal_WAV.shape[0]/signal_samplerate, signal_WAV.shape[0])
-    signal_lnGLRT_timeline = np.linspace(0, signal_lnGLRT.shape[0]/signal_samplerate, signal_lnGLRT.shape[0])
-
-    ax_bis = ax.twinx()
-
-    ax.plot(signal_timeline, signal_WAV, color='grey', alpha=.3, linewidth=.2)
-    ax_bis.plot(signal_lnGLRT_timeline, signal_lnGLRT, color='#62a2f5', linewidth=1.5)
-
-    ax.set_xlabel(r'Time $t$ $[s]$')
-    ax_bis.set_ylabel(r'$\ln(L_G(t))$', color='#1f6dd1')
-    ax.set_ylabel(r'Analyzed signal')
-
-    plt.show()
 
 def create_video(template_URL:pathlib.Path, signal_URL:pathlib.Path, frame_rate:int, name:str):
     """ Generate a sequence of frames to visualize the evolution of the generalized likelihood ratio in real-time.
@@ -154,8 +112,4 @@ if __name__ == "__main__":
     template_path = CURRENT_PATH / 'audio_files' / 'template' / 'call_2.wav'
     signal_path = CURRENT_PATH / 'audio_files' / 'signals' / 'nature_1.wav'
 
-    signal_hawk_path = CURRENT_PATH / 'audio_files' / 'signals' / 'nature_hawk.wav'
-    template_hawk_path = CURRENT_PATH / 'audio_files' / 'template' / 'call_hawk.wav'
-
-    draw_signal_analysis(template_hawk_path, signal_hawk_path)
-    #create_video(template_path, signal_path, 30, 'nature1_call2')
+    create_video(template_path, signal_path, 30, 'nature1_call2')
