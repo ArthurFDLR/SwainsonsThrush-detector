@@ -2,7 +2,7 @@
 
 [**Watch full video with audio here!**](https://youtu.be/NUYM1yvVPls)
 
-**For a better visualization of this notebook, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb).**
+**For a better visualization of this notebook, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb?flush_cache=true).**
 
 ![GitHub](https://img.shields.io/github/license/ArthurFDLR/SwainsonsThrush-detector)
 [![Linting](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -12,16 +12,16 @@
 
 
 The **GLRT** (Generalized Likelihood Ratio Test) is a general procedure for composite testing problems. The basic idea
-is to compare the likelihood of two hypotheses $H_0$ and $H_1$ for a given sequence of input values. This notebook implement this procedure for the detection of Swainson's Thrush:
+is to compare the likelihood of two hypotheses <img src="https://render.githubusercontent.com/render/math?math=H_0"> and <img src="https://render.githubusercontent.com/render/math?math=H_1"> for a given sequence of input values. This notebook implement this procedure for the detection of Swainson's Thrush:
 
-* $H_0$: The signal is only noise.
-* $H_1$: The signal present Swainson's Thrush pit call.
+* <img src="https://render.githubusercontent.com/render/math?math=H_0">: The signal is only noise.
+* <img src="https://render.githubusercontent.com/render/math?math=H_1">: The signal present Swainson's Thrush pit call.
 
 
 
 ## Audio arrays import
 
-The Generalized Likelihood Ratio is computed all along a recording $\{x(n)\}_{n = 0 \dots N-1}$ where the Swainson's Thrush pit call can be heard. Peaks in the Generalized Likelihood Ratio curve indicates the presence of a call that match the template $\{s(n)\}_{n = 0 \dots N − 1}$. The template signal is a simple filtered recording of the pit call. Audio samples are imported from [this](https://youtu.be/0LNtk5OVssQ) superb recording of a Swainson's Thrush in the wild.
+The Generalized Likelihood Ratio is computed all along a recording <img src="https://render.githubusercontent.com/render/math?math=\{x(n)\}_{n = 0 \ \dots \ N-1}"> where the Swainson's Thrush pit call can be heard. Peaks in the Generalized Likelihood Ratio curve indicates the presence of a call that match the template <img src="https://render.githubusercontent.com/render/math?math=\{s(n)\}_{n = 0 \ \dots \ N-1}">. The template signal is a simple filtered recording of the pit call. Audio samples are imported from [this](https://youtu.be/0LNtk5OVssQ) superb recording of a Swainson's Thrush in the wild.
 
 ### Audio file formats
 
@@ -54,7 +54,7 @@ ipd.Audio(template_WAV, rate=template_samplerate)
 ```
 
 
-*Audio display not supported in Markdowns, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb).*
+*Audio display not supported in Markdowns, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb?flush_cache=true).*
 
 
 
@@ -63,7 +63,7 @@ ipd.Audio(signal_WAV, rate=signal_samplerate)
 ```
 
 
-*Audio display not supported in Markdowns, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb).*
+*Audio display not supported in Markdowns, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb?flush_cache=true).*
 
 
 
@@ -72,29 +72,28 @@ ipd.Audio(signal_WAV, rate=signal_samplerate)
 We will have a sequence of problems at each time n0 with the
 following hypotheses:
 
-$$
-\begin{array}{ll}
+<img src="https://render.githubusercontent.com/render/math?math=\begin{array}{ll}
     H_0: x(n) = w(n)\\
     H_1: x(n) = w(n) + A \ s(n - n_0)
 \end{array}
-\quad , \ n=n_0,  \dots,  n_0 + N - 1
-$$
+\quad , \ n=n_0,  \dots,  n_0 + N - 1">
 
-$w$ is supposed to be white Gaussian noise of unknown variance $\sigma^2$. Furtheremroe, $A \neq 0$ is an unknow scale factor.
+
+
+<img src="https://render.githubusercontent.com/render/math?math=w"> is supposed to be white Gaussian noise of unknown variance <img src="https://render.githubusercontent.com/render/math?math=\sigma^2">. Furthermore, <img src="https://render.githubusercontent.com/render/math?math=A \neq 0"> is an unknow scale factor.
 
 Given our framework, the expression of the GLRT is
 
-$$ L_G(x) = \frac{p(x;\widehat{A};\widehat{\sigma_1^2};H_1)}{p(x;\widehat{\sigma_0^2};H_0)} = \left(\frac{\widehat{\sigma_0^2}}{\widehat{\sigma_1^2}}\right)^{\frac{N}{2}} $$
+<img src="https://render.githubusercontent.com/render/math?math=L_G(x) = \frac{p(x,\widehat{A},\widehat{\sigma_1^2},H_1)}{p(x,\widehat{\sigma_0^2},H_0)} = \left(\frac{\widehat{\sigma_0^2}}{\widehat{\sigma_1^2}}\right)^{\frac{N}{2}}">
 
-where $\widehat{A}$, $\widehat{\sigma_0^2}$ and $\widehat{\sigma_1^2}$ are the maximum likelihood estimates of $A$, $\sigma_0^2$ and $\sigma_1^2$:
 
-$$
-\begin{array}{ll}
-    \widehat{A} & = \frac{\sum^{n_0+N-1}_{n=n_0} x(n) s(n-n_0)}{\sum^{n_0+N-1}_{n=n_0}s^2(n-n_0)} \\[0.3cm]
-    \widehat{\sigma_0^2} & = \frac{1}{N} \sum^{n_0+N-1}_{n=n_0} x^2(n) \\[0.3cm]
-    \widehat{\sigma_1^2} & = \frac{1}{N} \sum^{n_0+N-1}_{n=n_0} (x(n) - \widehat{A} s(n-n_0))^2
-\end{array}
-$$
+where <img src="https://render.githubusercontent.com/render/math?math=\widehat{A}">, <img src="https://render.githubusercontent.com/render/math?math=\widehat{\sigma_0^2}"> and <img src="https://render.githubusercontent.com/render/math?math=\widehat{\sigma_1^2}"> are the maximum likelihood estimates of <img src="https://render.githubusercontent.com/render/math?math=A">, <img src="https://render.githubusercontent.com/render/math?math=\sigma_0^2"> and <img src="https://render.githubusercontent.com/render/math?math=\sigma_1^2">:
+
+<img src="https://render.githubusercontent.com/render/math?math=\begin{array}{ll}
+    \widehat{A} = \frac{\sum^{n_0+N-1}_{n=n_0} x(n) s(n-n_0)}{\sum^{n_0+N-1}_{n=n_0}s^2(n-n_0)} \\
+    \widehat{\sigma_0^2} = \frac{1}{N} \sum^{n_0+N-1}_{n=n_0} x^2(n) \\
+    \widehat{\sigma_1^2} = \frac{1}{N} \sum^{n_0+N-1}_{n=n_0} (x(n) - \widehat{A} s(n-n_0))^2
+\end{array}">
 
 We will compute the natural logarithm of the GLRT to avoid float overflow.
 
