@@ -69,14 +69,10 @@ ipd.Audio(signal_WAV, rate=signal_samplerate)
 
 ## Implementation of the GLRT
 
-We will have a sequence of problems at each time n0 with the
+We will have a sequence of problems at each time <img src="https://render.githubusercontent.com/render/math?math=n_0"> with the
 following hypotheses:
 
-<img src="https://render.githubusercontent.com/render/math?math=\begin{array}{ll}
-    H_0: x(n) = w(n)\\
-    H_1: x(n) = w(n) + A \ s(n - n_0)
-\end{array}
-\quad , \ n=n_0,  \dots,  n_0 + N - 1">
+<img src="https://render.githubusercontent.com/render/math?math=\begin{array}{ll}%20H_0:%20x(n)%20=%20w(n)\\%20H_1:%20x(n)%20=%20w(n)%20+%20A%20\%20s(n%20-%20n_0)%20\end{array}%20\quad%20,%20\%20n=n_0,%20%20\dots,%20%20n_0%20+%20N%20-%201">
 
 
 
@@ -89,11 +85,7 @@ Given our framework, the expression of the GLRT is
 
 where <img src="https://render.githubusercontent.com/render/math?math=\widehat{A}">, <img src="https://render.githubusercontent.com/render/math?math=\widehat{\sigma_0^2}"> and <img src="https://render.githubusercontent.com/render/math?math=\widehat{\sigma_1^2}"> are the maximum likelihood estimates of <img src="https://render.githubusercontent.com/render/math?math=A">, <img src="https://render.githubusercontent.com/render/math?math=\sigma_0^2"> and <img src="https://render.githubusercontent.com/render/math?math=\sigma_1^2">:
 
-<img src="https://render.githubusercontent.com/render/math?math=\begin{array}{ll}
-    \widehat{A} = \frac{\sum^{n_0+N-1}_{n=n_0} x(n) s(n-n_0)}{\sum^{n_0+N-1}_{n=n_0}s^2(n-n_0)} \\
-    \widehat{\sigma_0^2} = \frac{1}{N} \sum^{n_0+N-1}_{n=n_0} x^2(n) \\
-    \widehat{\sigma_1^2} = \frac{1}{N} \sum^{n_0+N-1}_{n=n_0} (x(n) - \widehat{A} s(n-n_0))^2
-\end{array}">
+<img src="https://render.githubusercontent.com/render/math?math=\begin{array}{ll}%20\widehat{A}%20=%20\frac{\sum^{n_0+N-1}_{n=n_0}%20x(n)%20s(n-n_0)}{\sum^{n_0+N-1}_{n=n_0}s^2(n-n_0)}%20\\%20\widehat{\sigma_0^2}%20=%20\frac{1}{N}%20\sum^{n_0+N-1}_{n=n_0}%20x^2(n)%20\\%20\widehat{\sigma_1^2}%20=%20\frac{1}{N}%20\sum^{n_0+N-1}_{n=n_0}%20(x(n)%20-%20\widehat{A}%20s(n-n_0))^2%20\end{array}">
 
 We will compute the natural logarithm of the GLRT to avoid float overflow.
 
@@ -205,19 +197,6 @@ pd.DataFrame(timestamps_detected, columns=["Timestamps"])
 
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
