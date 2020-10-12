@@ -176,7 +176,7 @@ plt.show()
 
 
     
-![svg](.github/markdown/SwainsonsTrush-detector_16_0.svg)
+![plot](.github/markdown/SwainsonsTrush-detector_16_0.png)
     
 
 
