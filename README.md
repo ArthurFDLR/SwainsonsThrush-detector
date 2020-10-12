@@ -12,16 +12,16 @@
 
 
 The **GLRT** (Generalized Likelihood Ratio Test) is a general procedure for composite testing problems. The basic idea
-is to compare the likelihood of two hypotheses <img src="https://render.githubusercontent.com/render/math?math=H_0"> and <img src="https://render.githubusercontent.com/render/math?math=H_1"> for a given sequence of input values. This notebook implement this procedure for the detection of Swainson's Thrush:
+is to compare the likelihood of two hypotheses <img src="https://render.githubusercontent.com/render/math?math=H_0"> and <img src="https://render.githubusercontent.com/render/math?math=H_1"> for a given sequence of input values. This notebook propose an implementation of this procedure for the detection of Swainson's Thrush call
 
 * <img src="https://render.githubusercontent.com/render/math?math=H_0">: The signal is only noise.
-* <img src="https://render.githubusercontent.com/render/math?math=H_1">: The signal present Swainson's Thrush pit call.
+* <img src="https://render.githubusercontent.com/render/math?math=H_1">: The signal contains Swainson's Thrush pit call.
 
 
 
 ## Audio arrays import
 
-The Generalized Likelihood Ratio is computed all along a recording <img src="https://render.githubusercontent.com/render/math?math=\{x(n)\}_{n = 0 \ \dots \ N-1}"> where the Swainson's Thrush pit call can be heard. Peaks in the Generalized Likelihood Ratio curve indicates the presence of a call that match the template <img src="https://render.githubusercontent.com/render/math?math=\{s(n)\}_{n = 0 \ \dots \ N-1}">. The template signal is a simple filtered recording of the pit call. Audio samples are imported from [this](https://youtu.be/0LNtk5OVssQ) superb recording of a Swainson's Thrush in the wild.
+The Generalized Likelihood Ratio is computed all along a recording <img src="https://render.githubusercontent.com/render/math?math=\{x(n)\}_{n = 0 \ \dots \ N-1}"> where the Swainson's Thrush pit call can be heard. Peaks in the Generalized Likelihood Ratio curve indicates the presence of a call that matches the template <img src="https://render.githubusercontent.com/render/math?math=\{s(n)\}_{n = 0 \ \dots \ N-1}">. The template signal is a simple filtered recording of the pit call. Audio samples are imported from [this](https://youtu.be/0LNtk5OVssQ) superb recording of a Swainson's Thrush in the wild.
 
 ### Audio file formats
 
@@ -87,7 +87,7 @@ where <img src="https://render.githubusercontent.com/render/math?math=\widehat{A
 
 <img src="https://render.githubusercontent.com/render/math?math=\begin{array}{ll}%20\widehat{A}%20=%20\frac{\sum^{n_0+N-1}_{n=n_0}%20x(n)%20s(n-n_0)}{\sum^{n_0+N-1}_{n=n_0}s^2(n-n_0)}%20\\%20\widehat{\sigma_0^2}%20=%20\frac{1}{N}%20\sum^{n_0+N-1}_{n=n_0}%20x^2(n)%20\\%20\widehat{\sigma_1^2}%20=%20\frac{1}{N}%20\sum^{n_0+N-1}_{n=n_0}%20(x(n)%20-%20\widehat{A}%20s(n-n_0))^2%20\end{array}">
 
-We will compute the natural logarithm of the GLRT to avoid float overflow.
+We will compute the natural logarithm of the GLRT to avoid float overflows.
 
 
 ```python
