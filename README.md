@@ -2,7 +2,7 @@
 
 [**Watch full video with audio here!**](https://youtu.be/NUYM1yvVPls)
 
-**For a better visualization of this notebook, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb?flush_cache=true).**
+**For a better visualization of this notebook, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb).**
 
 ![GitHub](https://img.shields.io/github/license/ArthurFDLR/SwainsonsThrush-detector)
 [![Linting](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -54,7 +54,7 @@ ipd.Audio(template_WAV, rate=template_samplerate)
 ```
 
 
-*Audio display not supported in Markdowns, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb?flush_cache=true).*
+*Audio display not supported in Markdowns, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb).*
 
 
 
@@ -63,7 +63,7 @@ ipd.Audio(signal_WAV, rate=signal_samplerate)
 ```
 
 
-*Audio display not supported in Markdowns, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb?flush_cache=true).*
+*Audio display not supported in Markdowns, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb).*
 
 
 
