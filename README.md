@@ -2,7 +2,7 @@
 
 [**Watch full video with audio here!**](https://youtu.be/NUYM1yvVPls)
 
-**For a better visualization of this notebook, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb).**
+**For a better visualization of this notebook, please use [NbViewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb) or [Google Colab](https://colab.research.google.com/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb#scrollTo=s0ywcXzcjI7H).**
 
 ![GitHub](https://img.shields.io/github/license/ArthurFDLR/SwainsonsThrush-detector)
 [![Linting](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -54,7 +54,7 @@ ipd.Audio(template_WAV, rate=template_samplerate)
 ```
 
 
-*Audio display not supported in Markdowns, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb).*
+*Audio display not supported in Markdowns, please use [NbViewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb) or [Google Colab](https://colab.research.google.com/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb#scrollTo=s0ywcXzcjI7H).*
 
 
 
@@ -63,7 +63,7 @@ ipd.Audio(signal_WAV, rate=signal_samplerate)
 ```
 
 
-*Audio display not supported in Markdowns, [please use nbviewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb).*
+*Audio display not supported in Markdowns, please use [NbViewer](https://nbviewer.jupyter.org/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb) or [Google Colab](https://colab.research.google.com/github/ArthurFDLR/SwainsonsThrush-detector/blob/main/SwainsonsTrush-detector.ipynb#scrollTo=s0ywcXzcjI7H).*
 
 
 
